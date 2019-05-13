@@ -16,11 +16,11 @@ int patterns[7][7] = {
 void setup() {
   for(int i = 0; i < ledPins; i++) {
     pinMode(ledPins[i], OUTPUT);
-    digitalWrite(ledPins[i], LOW);
+    show(blank);
     }
     pinMode(buttonPin, INPUT);
     Serial.begin(9600);
-    randomSeed(analogRead(0));
+    randomSeed(analogRead(A0));
   }
 
 void loop() {
@@ -35,8 +35,15 @@ void roll() {
   int result = 4;
   result = random(0, 6);
   delay(500);
+  shuffle();
+  delay(500);
   show(result);
   delay(500);
+  show(blank);
+  delay(500);
+  show(result);
+  delay(5000);
+  show(blank);
   }
 
 void show(int result) {
@@ -44,3 +51,15 @@ void show(int result) {
   digitalWrite(ledPins[i], patterns[result][i]);
   } 
  }
+
+void shuffle() {
+  
+  for(int i = 0; i < 7; i++){
+    digitalWrite(ledPins[i], patterns[i]);
+    delay(500);
+    
+    
+    }
+    show(blank);
+    delay(500);
+  }
